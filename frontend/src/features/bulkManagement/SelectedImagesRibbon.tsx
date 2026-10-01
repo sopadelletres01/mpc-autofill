@@ -14,11 +14,11 @@ import React, {
 import Dropdown from "react-bootstrap/Dropdown";
 import Stack from "react-bootstrap/Stack";
 
-import { SourceType } from "@/common/schema_types";
 import { Faces, Slots, useAppDispatch, useAppSelector } from "@/common/types";
 import { RightPaddedIcon } from "@/components/icon";
 import { OverflowList } from "@/components/OverflowList";
-import { useDoImageDownload } from "@/features/download/downloadImages";
+import { getDownloadableCardDocuments } from "@/features/download/downloadImages";
+import { useDownloadCardImagesZip } from "@/features/download/downloadImagesZip";
 import { GridSelectorModal } from "@/features/gridSelector/GridSelectorModal";
 import { useCardDocumentsByIdentifier } from "@/store/slices/cardDocumentsSlice";
 import { showChangeQueryModal } from "@/store/slices/modalsSlice";
@@ -38,7 +38,6 @@ import {
   setSelectedImages,
 } from "@/store/slices/projectSlice";
 import { selectSearchResultsForQueryOrDefault } from "@/store/slices/searchResultsSlice";
-import { setNotification } from "@/store/slices/toastsSlice";
 
 const RibbonText = styled.p`
   font-size: 0.9em;
@@ -251,7 +250,7 @@ function ClearSelectedImageQueries({
 }
 
 /**
- * Clicking this enqueues downloads for the selected images.
+ * Clicking this downloads the selected images as a single ZIP.
  */
 function DownloadSelectedImages({
   slots,
@@ -262,39 +261,25 @@ function DownloadSelectedImages({
 }) {
   const dispatch = useAppDispatch();
   const cardDocumentsByIdentifier = useCardDocumentsByIdentifier();
-  const queueImageDownload = useDoImageDownload();
+  const downloadImagesZip = useDownloadCardImagesZip();
   const identifiers = useAppSelector((state) =>
     selectUniqueCardIdentifiersInSlots(state, slots)
   );
 
   const onClick = () => {
-    let n = 0;
-    identifiers.forEach((identifier) => {
-      if (
-        cardDocumentsByIdentifier[identifier] &&
-        cardDocumentsByIdentifier[identifier].sourceType ===
-          SourceType.GoogleDrive
-      ) {
-        queueImageDownload(cardDocumentsByIdentifier[identifier]);
-        n++;
-      }
-    });
-    dispatch(bulkSetMemberSelection({ selectedStatus: false, slots }));
-    dispatch(
-      setNotification([
-        Math.random().toString(),
-        {
-          name: "Enqueued Downloads",
-          message: `Enqueued ${n} image download${n != 1 ? "s" : ""}!`,
-          level: "info",
-        },
-      ])
+    downloadImagesZip(
+      getDownloadableCardDocuments(
+        Array.from(identifiers).map(
+          (identifier) => cardDocumentsByIdentifier[identifier]
+        )
+      )
     );
+    dispatch(bulkSetMemberSelection({ selectedStatus: false, slots }));
   };
 
   return (
     <RibbonButton onClick={onClick} inDropdown={inDropdown}>
-      <RightPaddedIcon bootstrapIconName="cloud-arrow-down" /> Download Images
+      <RightPaddedIcon bootstrapIconName="file-zip" /> Download ZIP
     </RibbonButton>
   );
 }

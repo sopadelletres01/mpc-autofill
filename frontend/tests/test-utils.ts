@@ -250,6 +250,18 @@ export const downloadDecklist = async (
   return [content, download.suggestedFilename()];
 };
 
+export const downloadImagesZip = async (
+  page: Page
+): Promise<[Buffer, string]> => {
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: " Download" }).click();
+  await page.getByTestId("export-images-button").click();
+  const download = await downloadPromise;
+  const path = await download.path();
+  if (!path) throw new Error("Download path is null");
+  return [await readFile(path), download.suggestedFilename()];
+};
+
 export function normaliseString(text: string): string {
   return text.replaceAll(" ", "").replaceAll("\n", "").replaceAll("\r", "");
 }

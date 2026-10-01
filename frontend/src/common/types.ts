@@ -178,6 +178,7 @@ export type FileDownloadType =
   | "xml"
   | "text"
   | "pdf"
+  | "zip"
   | "desktop-tool";
 
 export interface FileDownload {

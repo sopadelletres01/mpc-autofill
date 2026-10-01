@@ -654,6 +654,20 @@ export const searchEngineHealthy = http.get(
 
 //# endregion
 
+//# region images
+
+const fakeImageBytes = Uint8Array.from([0xff, 0xd8, 0xff, 0xd9]);
+
+export const googleDriveImages = http.get(
+  "https://cdn.mpcautofill.com/images/google_drive/:size/:file",
+  () =>
+    HttpResponse.arrayBuffer(fakeImageBytes.buffer, {
+      headers: { "content-type": "image/jpeg" },
+    })
+);
+
+//# endregion
+
 //# region presets
 
 export const defaultHandlers = [
