@@ -3,7 +3,7 @@ import { cardDocument1, cardDocument2 } from "@/common/test-constants";
 import {
   getCardImageFileName,
   getDownloadableCardDocuments,
-} from "@/features/download/downloadImages";
+} from "@/features/download/cardImageFiles";
 
 describe("getCardImageFileName", () => {
   it("includes the card name, identifier, and extension", () => {

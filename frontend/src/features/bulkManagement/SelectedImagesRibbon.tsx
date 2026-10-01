@@ -17,7 +17,7 @@ import Stack from "react-bootstrap/Stack";
 import { Faces, Slots, useAppDispatch, useAppSelector } from "@/common/types";
 import { RightPaddedIcon } from "@/components/icon";
 import { OverflowList } from "@/components/OverflowList";
-import { getDownloadableCardDocuments } from "@/features/download/downloadImages";
+import { getDownloadableCardDocuments } from "@/features/download/cardImageFiles";
 import { useDownloadCardImagesZip } from "@/features/download/downloadImagesZip";
 import { GridSelectorModal } from "@/features/gridSelector/GridSelectorModal";
 import { useCardDocumentsByIdentifier } from "@/store/slices/cardDocumentsSlice";

@@ -9,11 +9,12 @@ import { getWorkerImageURL } from "@/common/image";
 import { CardDocument, useAppDispatch } from "@/common/types";
 import { useClientSearchContext } from "@/features/clientSearch/clientSearchContext";
 import { useLocalFilesDirectoryHandle } from "@/features/clientSearch/clientSearchHooks";
+import {
+  CARD_IMAGES_ZIP_FILENAME,
+  getCardImageFileName,
+} from "@/features/download/cardImageFiles";
 import { downloadFile, useDoFileDownload } from "@/features/download/download";
-import { getCardImageFileName } from "@/features/download/downloadImages";
 import { setNotification } from "@/store/slices/toastsSlice";
-
-export const CARD_IMAGES_ZIP_FILENAME = "card-images.zip";
 
 const IMAGE_FETCH_CONCURRENCY = 6;
 

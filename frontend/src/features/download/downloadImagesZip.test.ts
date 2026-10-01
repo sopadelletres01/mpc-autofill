@@ -1,7 +1,7 @@
 import JSZip from "jszip";
 
 import { cardDocument1, cardDocument2 } from "@/common/test-constants";
-import { getCardImageFileName } from "@/features/download/downloadImages";
+import { getCardImageFileName } from "@/features/download/cardImageFiles";
 import { createCardImagesZip } from "@/features/download/downloadImagesZip";
 
 const blobFromBytes = (bytes: number[]) => new Blob([new Uint8Array(bytes)]);

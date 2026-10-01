@@ -6,8 +6,10 @@ import {
   cardDocument2,
   cardDocument5,
 } from "@/common/test-constants";
-import { getCardImageFileName } from "@/features/download/downloadImages";
-import { CARD_IMAGES_ZIP_FILENAME } from "@/features/download/downloadImagesZip";
+import {
+  CARD_IMAGES_ZIP_FILENAME,
+  getCardImageFileName,
+} from "@/features/download/cardImageFiles";
 import {
   cardbacksOneOtherResult,
   cardDocumentsSixResults,

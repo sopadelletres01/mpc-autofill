@@ -3,7 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 import { useAppSelector } from "@/common/types";
 import { RightPaddedIcon } from "@/components/icon";
-import { getDownloadableCardDocuments } from "@/features/download/downloadImages";
+import { getDownloadableCardDocuments } from "@/features/download/cardImageFiles";
 import { useDownloadCardImagesZip } from "@/features/download/downloadImagesZip";
 import { useCardDocumentsByIdentifier } from "@/store/slices/cardDocumentsSlice";
 import { selectAnyImagesDownloadable } from "@/store/slices/projectSlice";
